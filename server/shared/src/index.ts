@@ -1,6 +1,1 @@
-console.log(process.env.NPM_TOKEN);
-const add = (a: number, b: number) => {
-  return a + b;
-};
-
-export { add };
+export * from "./errors/bad-request-error";
