@@ -3,11 +3,14 @@ import { User } from "../models/user";
 import { BadRequestError } from "@sgtickets/common";
 import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
+import { validationResult } from "express-validator";
 
-export async function create(
-  request: Request,
-  response: Response
-): Promise<void> {
+export async function create(request: Request, response: Response) {
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(StatusCodes.BAD_REQUEST).send(errors.array);
+  }
+
   const { email, password } = request.body;
   const existingUser = await User.findOne({ email });
   if (existingUser) {

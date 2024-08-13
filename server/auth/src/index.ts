@@ -1,28 +1,19 @@
-import { signupRouter } from "./routes/signup";
-import express from "express";
-// import { json } from "body-parser";
-// import { NotFoundError } from "@sgtickets/common";
-// import cookieSession from "cookie-session";
+import mongoose from "mongoose";
+import "express-async-errors";
 
-const app = express();
+import { app } from "./app";
 
-// app.set("trust proxy", true);
-// app.use(json());
+const start = async () => {
+  try {
+    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
+    console.log("Connected to MongoDb");
+  } catch (err) {
+    console.error(err);
+  }
 
-// app.use(
-//   cookieSession({
-//     signed: false,
-//     // secure: process.env.NODE_ENV !== 'test',
-//     secure: false,
-//   })
-// );
+  app.listen(3000, () => {
+    console.log("Auth server listening at 3000");
+  });
+};
 
-// app.all("*", async (req, res) => {
-//   throw new NotFoundError();
-// });
-
-// app.routes(signupRouter);
-
-app.listen(4001, () => {
-  console.log("Auth server listening at 4001");
-});
+start();

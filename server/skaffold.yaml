@@ -1,13 +1,18 @@
-apiVersion: skaffold/v4beta6
+apiVersion: skaffold/v2alpha3
 kind: Config
-metadata:
-  name: server
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
 build:
+  local:
+    push: false
   artifacts:
     - image: ticketing/auth
       context: auth
       docker:
         dockerfile: Dockerfile
-manifests:
-  rawYaml:
-    - infra/k8s/auth-mongo-depl.yml
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
