@@ -1,10 +1,12 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { User } from "../models/user";
-import { RequestValidationError } from "../errors/request-validation-error";
-import { BadRequestError } from "../errors/bad-request-error";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
+import {
+  BadRequestError,
+  RequestValidationError,
+} from "@usmankhalid87/ticketing-shared";
 
 const router = express.Router();
 
