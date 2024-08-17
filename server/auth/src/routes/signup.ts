@@ -43,7 +43,7 @@ router.post(
 
     //generate web token
     const token = jwt.sign(
-      { id: user.id, password: user.password },
+      { id: user.id, email: user.email },
       process.env.JWT_KEY!
     );
 

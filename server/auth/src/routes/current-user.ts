@@ -1,6 +1,5 @@
+import { currentUser, requireAuth } from "@usmankhalid87/ticketing-shared";
 import express from "express";
-import { currentUser } from "../middlewares/current-user";
-import { requireAuth } from "@sgtickets/common/build/middlewares/require-auth";
 
 const router = express.Router();
 
