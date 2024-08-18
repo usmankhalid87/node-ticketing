@@ -14,13 +14,18 @@ spec:
     spec:
       containers:
         - name: auth
-          image: ticketing/auth
+          image: uk1987/auth
           env:
             - name:  JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name:  jwt-secret
                   key:  JWT_KEY
+            - name: NPM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: npm-secret
+                  key: NPM_TOKEN
 ---
 apiVersion: v1
 kind: Service

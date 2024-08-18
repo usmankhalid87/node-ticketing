@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v2beta13
 kind: Config
 deploy:
   kubectl:
@@ -7,11 +7,24 @@ deploy:
 build:
   local:
     push: false
+    useBuildkit: true  # Enable Docker BuildKit
   artifacts:
-    - image: ticketing/auth
+    - image: uk1987/auth
       context: auth
       docker:
         dockerfile: Dockerfile
+        buildArgs:
+          NPM_TOKEN: "{{.NPM_TOKEN}}"
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: uk1987/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          NPM_TOKEN: "{{.NPM_TOKEN}}"
       sync:
         manual:
           - src: 'src/**/*.ts'
