@@ -18,8 +18,6 @@ describe("New route tests for ticketing services", () => {
   it("returns a status other than UNAUTHORIZED(401) if the user is signed in", async () => {
     const cookie = global.signin();
 
-    console.log(cookie);
-
     const response = await request(app)
       .post("/api/tickets")
       .set("Cookie", cookie)

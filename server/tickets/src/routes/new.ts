@@ -1,11 +1,7 @@
-import {
-  currentUser,
-  requireAuth,
-  validateRequest,
-} from "@usmankhalid87/ticketing-shared";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { StatusCodes } from "http-status-codes";
+import { requireAuth, validateRequest } from "@usmankhalid87/ticketing-shared";
+import { Ticket } from "../models/ticket";
 
 const router = express.Router();
 
@@ -18,8 +14,18 @@ router.post(
       .isFloat({ gt: 0 })
       .withMessage("Price must be greater than 0"),
   ],
-  (request: Request, response: Response) => {
-    response.status(StatusCodes.CREATED).send();
+  validateRequest,
+  async (req: Request, res: Response) => {
+    const { title, price } = req.body;
+
+    const ticket = Ticket.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+    await ticket.save();
+
+    res.status(201).send(ticket);
   }
 );
 
