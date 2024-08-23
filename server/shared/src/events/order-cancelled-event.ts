@@ -1,7 +1,7 @@
-import { Subjects } from "./subjects";
+import { RoutingKeys } from "./routing-keys";
 
 export interface OrderCancelledEvent {
-  subject: Subjects.OrderCancelled;
+  subject: RoutingKeys.OrderCancelled;
   data: {
     id: string;
     version: number;

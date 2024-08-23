@@ -1,7 +1,7 @@
-import { Subjects } from './subjects';
+import { RoutingKeys } from "./routing-keys";
 
 export interface ExpirationCompleteEvent {
-  subject: Subjects.ExpirationComplete;
+  subject: RoutingKeys.ExpirationComplete;
   data: {
     orderId: string;
   };

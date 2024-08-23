@@ -1,7 +1,7 @@
-import { Subjects } from './subjects';
+import { RoutingKeys } from "./routing-keys";
 
 export interface TicketCreatedEvent {
-  subject: Subjects.TicketCreated;
+  subject: RoutingKeys.TicketCreated;
   data: {
     id: string;
     version: number;

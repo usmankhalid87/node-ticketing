@@ -1,7 +1,7 @@
-import { Subjects } from './subjects';
+import { RoutingKeys } from "./routing-keys";
 
 export interface PaymentCreatedEvent {
-  subject: Subjects.PaymentCreated;
+  subject: RoutingKeys.PaymentCreated;
   data: {
     id: string;
     orderId: string;
