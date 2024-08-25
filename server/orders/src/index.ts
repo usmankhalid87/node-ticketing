@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import "express-async-errors";
 import { app } from "./app";
 import { rabbitMQWrapper } from "./rmq-wrapper";
+import { TicketCreatedConsumer } from "./events/consumers/ticket-created-consumber";
 
 const start = async () => {
   try {
@@ -16,14 +17,16 @@ const start = async () => {
     process.on("SIGINT", () => rabbitMQWrapper.channel.close());
     process.on("SIGTERM", () => rabbitMQWrapper.channel.close());
 
-    await mongoose.connect("mongodb://tickets-mongo-srv:27017/tickets");
+    new TicketCreatedConsumer(rabbitMQWrapper.channel).consume();
+
+    await mongoose.connect("mongodb://orders-mongo-srv:27017/orders");
     console.log("Connected to MongoDb");
   } catch (err) {
     console.error(err);
   }
 
-  app.listen(3001, () => {
-    console.log("Tickets server listening at 3001");
+  app.listen(3002, () => {
+    console.log("orders server listening at 3002");
   });
 };
 

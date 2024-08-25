@@ -2,6 +2,7 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
+import { newOrderRouter } from "./routes/new";
 import {
   currentUser,
   errorHandler,
@@ -23,6 +24,7 @@ app.use(
 );
 
 app.use(currentUser);
+app.use(newOrderRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
