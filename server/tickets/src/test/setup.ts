@@ -1,10 +1,16 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import { MockRabbitMQWrapper } from "../__mocks__/rmq-wrapper";
 
 declare global {
   var signin: () => string[];
 }
+
+// Mock the rabbitMQWrapper to avoid using the real instance
+jest.mock("../rmq-wrapper.ts", () => ({
+  rabbitMQWrapper: MockRabbitMQWrapper,
+}));
 
 let mongo: any;
 beforeAll(async () => {
@@ -18,6 +24,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   // Ensure the connection is established before proceeding
   if (!mongoose.connection.db) {
     throw new Error("Database connection is not established.");

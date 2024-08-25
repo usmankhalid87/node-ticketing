@@ -16,6 +16,8 @@ spec:
         - name: tickets
           image: uk1987/tickets
           env:
+            - name: RMQ_URL
+              value: 'amqp://rabbitmq-service:5672'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

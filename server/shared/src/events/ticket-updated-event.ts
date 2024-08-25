@@ -1,7 +1,9 @@
+import { Exchange } from "./exchange-names";
 import { RoutingKeys } from "./routing-keys";
 
 export interface TicketUpdatedEvent {
-  subject: RoutingKeys.TicketUpdated;
+  routingKey: RoutingKeys.TicketUpdated;
+  exchange: Exchange.TicketUpdated;
   data: {
     id: string;
     version: number;

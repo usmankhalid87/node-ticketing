@@ -1,6 +1,6 @@
 {
   "name": "@usmankhalid87/ticketing-shared",
-  "version": "1.0.34",
+  "version": "1.0.37",
   "description": "Shared file for the ticketing",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",

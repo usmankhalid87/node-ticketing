@@ -2,6 +2,9 @@ import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { requireAuth, validateRequest } from "@usmankhalid87/ticketing-shared";
 import { Ticket } from "../models/ticket";
+import { StatusCodes } from "http-status-codes";
+import { rabbitMQWrapper } from "../rmq-wrapper";
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 
 const router = express.Router();
 
@@ -25,7 +28,17 @@ router.post(
     });
     await ticket.save();
 
-    res.status(201).send(ticket);
+    console.log("RMQ_Wrapper : ", rabbitMQWrapper);
+
+    new TicketCreatedPublisher(rabbitMQWrapper.channel).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+      version: ticket.version,
+    });
+
+    res.status(StatusCodes.CREATED).send(ticket);
   }
 );
 
