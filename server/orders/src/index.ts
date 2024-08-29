@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import "express-async-errors";
 import { app } from "./app";
 import { rabbitMQWrapper } from "./rmq-wrapper";
-import { TicketCreatedConsumer } from "./events/consumers/ticket-created-consumber";
+import { TicketCreatedConsumer } from "./events/consumers/ticket-created-consumer";
 
 const start = async () => {
   try {

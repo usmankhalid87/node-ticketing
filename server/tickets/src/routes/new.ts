@@ -26,17 +26,16 @@ router.post(
       price,
       userId: req.currentUser!.id,
     });
-    await ticket.save();
 
-    console.log("RMQ_Wrapper : ", rabbitMQWrapper);
-
-    new TicketCreatedPublisher(rabbitMQWrapper.channel).publish({
+    await new TicketCreatedPublisher(rabbitMQWrapper.channel).publish({
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
       version: ticket.version,
     });
+
+    await ticket.save();
 
     res.status(StatusCodes.CREATED).send(ticket);
   }

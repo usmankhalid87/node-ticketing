@@ -15,6 +15,8 @@ export class TicketCreatedConsumer extends Consumer<TicketCreatedEvent> {
   async onMessage(data: TicketCreatedEvent["data"], msg: ConsumeMessage) {
     const { id, title, price } = data;
 
+    console.log("Data Recieved at orders service : ", data.title);
+
     const ticket = Ticket.build({
       id,
       title,
